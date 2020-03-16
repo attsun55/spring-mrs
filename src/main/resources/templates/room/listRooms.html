@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title th:text="|${#temporals.format(date, 'yyyy/M/d')}В╠ЙяЛcО║|">2016/5/20В╠ЙяЛcО║</title>
+<title th:text="|${#temporals.format(date, 'yyyy/M/d')}уБоф╝Ъшн░ход|">2016/5/20уБоф╝Ъшн░ход</title>
 </head>
 <body>
-	<h3>ЙяЛcО║</h3>
-	<a th:href="@{'/rooms/' + ${date.minusDays(1)}}">&lt; СOУ·</a>
-	<span th:text="|${#temporals.format(date, 'yyyy/M/d')}В╠ЙяЛcО║|">2016/5/20В╠ЙяЛcО║</span>
-	<a th:href="@{'/rooms/' + ${date.plusDays(1)}}">ЧВУ· &gt;</a>
+	<h3>ф╝Ъшн░ход</h3>
+	<a th:href="@{'/rooms/' + ${date.minusDays(1)}}">&lt; хЙНцЧе</a>
+	<span th:text="|${#temporals.format(date, 'yyyy/M/d')}уБоф╝Ъшн░ход|">2016/5/20уБоф╝Ъшн░ход</span>
+	<a th:href="@{'/rooms/' + ${date.plusDays(1)}}">ч┐МцЧе &gt;</a>
 	<ul>
 		<li th:each="room: ${rooms}">
 			<a th:href="@{'/reservations/' + ${date} + '/' + ${room.meetingRoom.roomId}}"
@@ -16,7 +16,7 @@
 		</li>
 	</ul>
 	<form th:action="@{/logout}" method="post">
-		<button>ГНГOГAГEГg</button>
+		<button>уГнуВ░уВвуВжуГИ</button>
 	</form>
 </body>
 </html>
