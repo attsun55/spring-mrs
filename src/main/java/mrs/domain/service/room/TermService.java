@@ -10,10 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 import mrs.domain.model.ReservableRoom;
 import mrs.domain.repository.room.MeetingRoomRepository;
 import mrs.domain.repository.room.ReservableRoomRepository;
+import mrs.domain.repository.room.TermsRepository;
 
 @Service
 @Transactional
-public class RoomService {
+public class TermService {
 	
 	@Autowired
 	ReservableRoomRepository reservableRoomRepository;
@@ -21,10 +22,19 @@ public class RoomService {
 	@Autowired
 	MeetingRoomRepository meetingRoomRepository;
 
+	@Autowired
+	TermsRepository termsRepository;
+	
+	
 	public List<ReservableRoom> findReservableRooms(LocalDate date) {
 		return reservableRoomRepository.findByReservableRoomId_reservedDateOrderByReservableRoomId_roomIdAsc(date);
 	}
 
+	
+	public int select() {
+		return termsRepository.select(1);
+	}
+	
 //	public MeetingRoom findMeetingRoom(Integer roomId) {
 //		return meetingRoomRepository.findOne(roomId);
 //	}

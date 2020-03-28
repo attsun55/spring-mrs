@@ -48,6 +48,18 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		
+        <dependency>
+            <groupId>org.seasar.doma.boot</groupId>
+            <artifactId>doma-spring-boot-starter</artifactId>
+            <version>1.1.1</version>
+        </dependency> 
+        <dependency>
+            <groupId>org.seasar.doma</groupId>
+            <artifactId>doma</artifactId>
+            <version>2.18.0</version>
+        </dependency>
+		
 	</dependencies>
 
 	<build>
