@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title th:text="|${#temporals.format(date, 'yyyy/M/d')}縺ｮ莨夊ｭｰ螳､|">2016/5/20縺ｮ莨夊ｭｰ螳､</title>
+</head>
+<body>
+	<h3>莨夊ｭｰ螳､</h3>
+	<span th:text="a縺ｮ莨夊ｭｰ螳､|">2016/5/20縺ｮ莨夊ｭｰ螳､</span>
+	<span th:text="${id}" ></span>
+	<form th:action="@{/logout}" method="post">
+		<button>繝ｭ繧ｰ繧｢繧ｦ繝</button>
+	</form>
+</body>
+</html>
