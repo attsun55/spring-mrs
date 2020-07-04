@@ -1,4 +1,4 @@
-package mrs.app.room;
+package mrs.app;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import mrs.domain.model.ReservableRoom;
-import mrs.domain.service.room.RoomService;
+import mrs.domain.service.RoomService;
 
 @Controller
 @RequestMapping("rooms")

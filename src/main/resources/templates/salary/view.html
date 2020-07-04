@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>sample</title>
+    <script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>    
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div id="page">
+        <header>
+            <div id="header_inner">
+                <div id="header_logo">
+                    <img src="https://d2l930y2yx77uc.cloudfront.net/production/uploads/images/6432837/picture_pc_9a06a019fe451a6c54a064d465d927c5.jpg">
+                </div>
+            </div>
+        </header>
+        <div id="main_image">
+            <div id="main_image_inner">
+                <h1>一覧</h1>
+            </div>
+        </div>
+        <main>
+            <section id="find">
+                <select name="example">
+                    <option value="2020">2020年</option>
+                    <option value="2019">2019年</option>
+                    <option value="2018">2018年</option>
+                </select>
+                <button type="button" id="find" name="find" value="find">検索</button>
+                <button type="button" id="import" name="import" value="import">取込</button>
+
+            </section>
+
+            <section id="section01">
+                <div id="year">
+                    2020年
+                </div>
+    
+                <table border="1">
+                    <tr>
+                        <th>種別</th><th>月</th><th>総支給額</th> <th>振込支給額</th><th></th><th></th>
+                    </tr>
+                    <tr>
+                      <td>給与</td>
+                      <td>05月</td>
+                      <td>362,000円</td>
+                      <td>307,000円</td>
+                      <td><button type="button" class="detailBtn" name="detail" value="detail">詳細</button></td>
+                      <td><button type="button" class="deleteBtn" name="delete" value="delete">削除</button></td>
+                    </tr>
+                    <tr>
+                        <td>給与</td>
+                        <td>06月</td>
+                        <td>350,000円</td>
+                        <td>298,000円</td>
+                        <td><button type="button" class="detailBtn" name="aaa" value="aaa">詳細</button></td>
+                        <td><button type="button" class="deleteBtn" name="delete" value="delete">削除</button></td>
+                    </tr>
+                    </table>                
+            </section>
+        </main>
+        <footer>
+            <button type="button" id="prevBtn" name="aaa" value="aaa">前に戻る</button>
+        </footer>
+    </div>
+</body>
+</html>
+
+
+<script>
+  $(function(){
+
+    // ボタンクリック
+    $('#prevBtn').click(function(){
+        window.location.href = 'index.html';
+    });
+
+    // 詳細ボタンクリック
+    $('.detailBtn').click(function(){
+        window.location.href = 'edit.html';
+    });
+
+    // PDF取込ボタンクリック
+    $('#import').click(function(){
+        window.location.href = 'import.html';
+    });
+
+
+  });    
+</script>
+

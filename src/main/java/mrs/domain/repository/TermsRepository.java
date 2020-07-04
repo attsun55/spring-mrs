@@ -1,4 +1,4 @@
-package mrs.domain.repository.room;
+package mrs.domain.repository;
 
 import org.seasar.doma.Dao;
 import org.seasar.doma.Select;

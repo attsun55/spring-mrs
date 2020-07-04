@@ -1,4 +1,4 @@
-package mrs.app.room;
+package mrs.app;
 
 import java.time.LocalDate;
 
@@ -8,24 +8,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import mrs.domain.service.room.TermService;
+import mrs.domain.service.TermService;
 
 @Controller
-@RequestMapping("terms")
-public class TermsController {
+@RequestMapping("users")
+public class UsersController {
 	
 	@Autowired
 	TermService termService;
 
-//	@RequestMapping(value = "{date}", method = RequestMethod.GET)
-//	String listRooms(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable("date") LocalDate date, Model model) {
-//		List<ReservableRoom> rooms = roomService.findReservableRooms(date);
-//		model.addAttribute("rooms", rooms);
-//		return "room/terms";
-//	}
-
 	@RequestMapping(method = RequestMethod.GET)
-	String listRooms(Model model) {
+	String find(Model model) {
 		
 		int id = termService.select();
 		
