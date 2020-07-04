@@ -15,5 +15,5 @@ public interface TermsRepository {
 //	ReservableRoom findOneForUpdateByReservableRoomId(ReservableRoomId reservableRoomId);
 	
 	@Select
-	int select(Integer id);
+	public int select(Integer id);
 }

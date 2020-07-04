@@ -30,7 +30,6 @@ public class TermService {
 		return reservableRoomRepository.findByReservableRoomId_reservedDateOrderByReservableRoomId_roomIdAsc(date);
 	}
 
-	
 	public int select() {
 		return termsRepository.select(1);
 	}

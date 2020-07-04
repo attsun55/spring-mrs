@@ -1,10 +1,10 @@
 <!doctype html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>sample</title>
-    <script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>    
-    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="js/jquery-1.6.2.min.js" th:src="@{/js/jquery-1.6.2.min.js}"></script>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
 
 <style>
     .dtable{
