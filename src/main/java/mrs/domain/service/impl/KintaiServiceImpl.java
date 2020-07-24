@@ -7,7 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import mrs.domain.dao.KintaiDao;
-import mrs.domain.model.Kintai;
+import mrs.domain.model.KintaiDto;
+import mrs.domain.model.SalaryDto;
 import mrs.domain.service.KintaiService;
 
 @Service
@@ -15,22 +16,28 @@ import mrs.domain.service.KintaiService;
 public class KintaiServiceImpl implements KintaiService {
 	
 	@Autowired
-	KintaiDao kintaiRepository;
+	KintaiDao kintaiDao;
 	
-	public Kintai findKintai(String userId, int taishoYd){
+	public KintaiDto findKintai(String userId, int taishoYd){
 		
-		Kintai kintai = kintaiRepository.selectKintai(userId, taishoYd);
+		KintaiDto kintaiDto = kintaiDao.selectKintai(userId, taishoYd);
 	
-		return kintai;
+		return kintaiDto;
 		
 	}
 
-	public List<Kintai> findKintaiList(String userId){
+	public List<KintaiDto> findKintaiList(String userId){
 
-		List<Kintai> kintaiList = kintaiRepository.selectKintaiList(userId);
+		List<KintaiDto> kintaiList = kintaiDao.selectKintaiList(userId);
 		
 		return kintaiList;
 		
 	}
+	
+	public void addKintai(SalaryDto salaryDto) {
+		
+		kintaiDao.insertKintai(salaryDto);
+	};
+
 	
 }

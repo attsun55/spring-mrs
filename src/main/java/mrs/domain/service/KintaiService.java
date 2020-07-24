@@ -5,14 +5,17 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import mrs.domain.model.Kintai;
+import mrs.domain.model.KintaiDto;
+import mrs.domain.model.SalaryDto;
 
 @Service
 @Transactional
 public interface KintaiService {
 	
-	public Kintai findKintai(String userId, int taishoYd);
+	public KintaiDto findKintai(String userId, int taishoYd);
 
-	public List<Kintai> findKintaiList(String userId);
+	public List<KintaiDto> findKintaiList(String userId);
+	
+	public void addKintai(SalaryDto salaryDto);
 	
 }

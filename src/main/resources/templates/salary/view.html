@@ -37,6 +37,8 @@
                     2020年
                 </div>
     
+                test : <p th:text="${test}"></p> ←
+
                 <table border="1">
                     <tr>
                         <th>種別</th><th>月</th><th>総支給額</th> <th>振込支給額</th><th></th><th></th>
@@ -51,9 +53,9 @@
                     </tr>
                     <tr>
                         <td>給与</td>
-                        <td>06月</td>
-                        <td>350,000円</td>
-                        <td>298,000円</td>
+                        <!-- <td><p th:text="${salaryForm.getTaishoYm()}"></p></td> -->
+                        <!-- <td><p th:text="${salaryForm.getTotalShikyu()}"></p></td>
+                        <td><p th:text="${salaryForm.getHurikomiShikyu()}"></p></td> -->
                         <td><button type="button" class="detailBtn" name="aaa" value="aaa">詳細</button></td>
                         <td><button type="button" class="deleteBtn" name="delete" value="delete">削除</button></td>
                     </tr>

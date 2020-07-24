@@ -32,72 +32,73 @@
             </div>
         </div>
         <main>
-            <div class="dtable">
-                <div class="dtable_c">
-                    一つ目のブロックレベル要素【勤怠】<br />
-                    <div>
-                    出勤日数：<input type="text" name="text" value="">日
-                    </div>
-                    <div>
-                        実働時間：<input type="text" name="text" value="">時間
-                    </div>
-                    <div>
-                            時間外労働：<input type="text" name="text" value="">時間
-                    </div>
-                </div>
-                <div class="dtable_c">
-                    二つ目のブロックレベル要素【支給】<br />
-                    <div>
-                        基本給：<input type="text" name="text" value="">円
-                    </div>
-                    <div>
-                        職場外手当：<input type="text" name="text" value="">円
-                    </div>
-                    <div>
-                        職能手当：<input type="text" name="text" value="">円
-                    </div>
-                    <div>
-                        家族手当：<input type="text" name="text" value="">円
-                    </div>
-                    <div>
-                        ﾗｲﾌﾌﾟﾗﾝ給：<input type="text" name="text" value="">円
-                    </div>
-                    <div>
-                        通勤支給合計：<input type="text" name="text" value="">円
-                    </div>
-                </div>
-                <div class="dtable_c">
-                    三つ目のブロックレベル要素【控除】<br />
-                    <div>
-                        健康保険料：<input type="text" name="text" value="">円
-                    </div>
-                    <div>
-                        厚生年金：<input type="text" name="text" value="">円
-                    </div>
-                    <div>
-                        雇用保険：<input type="text" name="text" value="">円
-                    </div>
-                    <div>
-                        所得税：<input type="text" name="text" value="">円
-                    </div>
-                    <div>
-                        住民税：<input type="text" name="text" value="">円
-                    </div>
-                    <div>
-                        その他：<input type="text" name="text" value="">円
-                    </div>
-                </div>
+        <form th:object="${salaryForm}" action="/salary/save" th:action="@{/salary/save}"  method="post" >
+          <div class="dtable">
+            <div class="dtable_c">
+                               一つ目のブロックレベル要素【勤怠】<br />
+              <div>
+                                  出勤日数：<input type="text" name="shukkinDays" value="">日
+              </div>
+              <div>
+                                  実働時間：<input type="text" name="jitshudoTime" value="">時間
+              </div>
+              <div>
+                                 時間外労働：<input type="text" name="jikangai" value="">時間
+              </div>
+            </div>
+            <div class="dtable_c">
+                             二つ目のブロックレベル要素【支給】<br />
+             <div>
+                                基本給：<input type="text" name="text" value="">円
+             </div>
+             <div>
+                               職場外手当：<input type="text" name="text" value="">円
+             </div>
+             <div>
+               職能手当：<input type="text" name="text" value="">円
+             </div>
+             <div>
+               家族手当：<input type="text" name="text" value="">円
+             </div>
+             <div>
+               ﾗｲﾌﾌﾟﾗﾝ給：<input type="text" name="text" value="">円
+             </div>
+             <div>
+               通勤支給合計：<input type="text" name="text" value="">円
+             </div>
+           </div>
+           <div class="dtable_c">
+              三つ目のブロックレベル要素【控除】<br />
+            <div>
+              健康保険料：<input type="text" name="text" value="">円
             </div>
             <div>
-                総支給額：<input type="text" name="text" value="">円
-                控除合計：<input type="text" name="text" value="">円
-                差引支給額：<input type="text" name="text" value="">円
-                総支給額累計：<input type="text" name="text" value="">円
+                             厚生年金：<input type="text" name="text" value="">円
             </div>
+            <div>
+                             雇用保険：<input type="text" name="text" value="">円
+            </div>
+            <div>
+                             所得税：<input type="text" name="text" value="">円
+            </div>
+            <div>
+                             住民税：<input type="text" name="text" value="">円
+            </div>
+            <div>
+                             その他：<input type="text" name="text" value="">円
+            </div>
+          </div>
+         </div>
+         <div>
+                      総支給額：<input type="text" name="text" value="">円
+                      控除合計：<input type="text" name="text" value="">円
+                      差引支給額：<input type="text" name="text" value="">円
+                      総支給額累計：<input type="text" name="text" value="">円
+         </div>
 
-            <button type="button" id="impBtn" name="import" value="import">PDF取込</button>
-            <button type="button" id="saveBtn" name="save" value="aaa">登録</button>
-
+         <button type="button" id="impBtn" name="import" value="import">PDF取込</button>
+         <button type="button" id="saveBtn" name="save" value="aaa">登録</button>
+        </form>
         </main>
         <footer>
             <button type="button" id="prevBtn" name="aaa" value="aaa">前に戻る</button>
@@ -110,13 +111,17 @@
 <script>
   $(function(){
 
-    // ボタンクリック
+    // 前へボタン
     $('#prevBtn').click(function(){
         window.location.href = 'view.html';
+
     });
 
+    // 登録ボタン
     $('#saveBtn').click(function(){
-        window.location.href = 'save.html';
+//        window.location.href = 'save.html';
+    	$('form').submit();
+
     });
 
 

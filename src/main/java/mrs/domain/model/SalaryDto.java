@@ -1,15 +1,11 @@
 package mrs.domain.model;
 
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import org.seasar.doma.Column;
 import org.seasar.doma.Entity;
 
 @Entity
-@Table(name = "kintai")
-public class Kintai {
-	@Id
+public class SalaryDto {
+	
 	@Column(name = "kintai_cd")
 	private String kintaiCd;
 	
