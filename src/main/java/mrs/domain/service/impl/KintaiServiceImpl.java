@@ -18,11 +18,11 @@ public class KintaiServiceImpl implements KintaiService {
 	@Autowired
 	KintaiDao kintaiDao;
 	
-	public KintaiDto findKintai(String userId, int taishoYd){
+	public List<KintaiDto> findKintai(String userId, int taishoYd){
 		
-		KintaiDto kintaiDto = kintaiDao.selectKintai(userId, taishoYd);
+		List<KintaiDto> kintaiDtoList = kintaiDao.selectKintai(userId, taishoYd);
 	
-		return kintaiDto;
+		return kintaiDtoList;
 		
 	}
 

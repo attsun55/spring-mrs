@@ -16,8 +16,11 @@ public class KintaiDto {
 	@Column(name = "user_id")
 	private String userId;
 	
-	@Column(name = "taisho_ym")
-	private int taishoYm;
+	@Column(name = "taisho_y")
+	private int taishoY;
+
+	@Column(name = "taisho_m")
+	private int taishoM;
 	
 	@Column(name = "shukkin_days")
 	private int shukkinDays;
@@ -46,11 +49,17 @@ public class KintaiDto {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public int getTaishoYm() {
-		return taishoYm;
+	public int getTaishoY() {
+		return taishoY;
 	}
-	public void setTaishoYm(int taishoYm) {
-		this.taishoYm = taishoYm;
+	public void setTaishoY(int taishoY) {
+		this.taishoY = taishoY;
+	}
+	public int getTaishoM() {
+		return taishoM;
+	}
+	public void setTaishoM(int taishoM) {
+		this.taishoM = taishoM;
 	}
 	public int getShukkinDays() {
 		return shukkinDays;

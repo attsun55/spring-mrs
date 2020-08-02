@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <title>sample</title>
-    <script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>    
-    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="js/jquery-1.6.2.min.js" th:src="@{/js/jquery-1.6.2.min.js}"></script>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div id="page">
@@ -16,13 +16,17 @@
             </div>
         </header>
         <main>
-            <section id="import">
-                <input type="file" name="fl01" accept="application/pdf" size="100" style="width:200;">
-                <div>
-                     <button type="button" id="prevBtn" name="aaa" value="aaa">取込</button>
-                </div>
-            </section>
-
+            <form th:object="${salaryImportForm}" action="/salary/execute_import" enctype="multipart/form-data" th:action="@{/salary/execute_import}"  method="post" >
+                <section id="import">
+                    <div class="form-group">
+                        <label>■ファイルパス：</label>
+                        <input type="file" id="imp_file" name="imp_file" required="" />
+                    </div>                    
+                    <div>
+                        <button type="button" id="impBtn" name="impBtn" value="aaa">取込</button>
+                    </div>
+                </section>
+            </form>
         </main>
         <footer>
             <button type="button" id="prevBtn" name="aaa" value="aaa">前に戻る</button>
@@ -34,18 +38,16 @@
 
 <script>
   $(function(){
+    // 取込ボタンクリック
+    $('#impBtn').click(function(){
+        alert("取込み")
 
-    // ボタンクリック
-    $('#prevBtn').click(function(){
-        window.location.href = 'view.html';
+        alert( $('#imp_file').text() )
+
+
+    	$('form').submit();
+
     });
-
-    // 詳細ボタンクリック
-    $('.detailBtn').click(function(){
-        window.location.href = 'edit.html';
-    });
-
-
   });    
 </script>
 

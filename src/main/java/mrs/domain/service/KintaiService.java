@@ -12,7 +12,7 @@ import mrs.domain.model.SalaryDto;
 @Transactional
 public interface KintaiService {
 	
-	public KintaiDto findKintai(String userId, int taishoYd);
+	public List<KintaiDto> findKintai(String userId, int taishoYd);
 
 	public List<KintaiDto> findKintaiList(String userId);
 	

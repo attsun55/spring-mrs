@@ -1,14 +1,10 @@
 package mrs.app;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import mrs.domain.model.KintaiDto;
-import mrs.domain.service.KintaiService;
-import mrs.domain.service.TermService;
+import mrs.domain.model.SalaryDto;
 
 public class SalaryForm implements Serializable {
 
@@ -23,7 +19,9 @@ public class SalaryForm implements Serializable {
 	
 	private String userId = "";
 	
-	private String taishoYm = "";
+	private String taishoY = "";
+
+	private String taishoM = "";
 	
 	private String shukkinDays = "";
 	
@@ -71,6 +69,8 @@ public class SalaryForm implements Serializable {
 	
 	private String koushinYmd = "";
 
+	private List<SalaryDto> salaryDtoList = new ArrayList<SalaryDto>();
+	
 	public String getKyuyoId() {
 		return kyuyoId;
 	}
@@ -95,14 +95,22 @@ public class SalaryForm implements Serializable {
 		this.userId = userId;
 	}
 
-	public String getTaishoYm() {
-		return taishoYm;
+	public String getTaishoY() {
+		return taishoY;
 	}
 
-	public void setTaishoYm(String taishoYm) {
-		this.taishoYm = taishoYm;
+	public void setTaishoY(String taishoY) {
+		this.taishoY = taishoY;
 	}
 
+	public String getTaishoM() {
+		return taishoM;
+	}
+
+	public void setTaishoM(String taishoM) {
+		this.taishoM = taishoM;
+	}
+	
 	public String getShukkinDays() {
 		return shukkinDays;
 	}
@@ -287,4 +295,12 @@ public class SalaryForm implements Serializable {
 		this.koushinYmd = koushinYmd;
 	}
 
+	public List<SalaryDto> getSalaryDtoList() {
+		return salaryDtoList;
+	}
+
+	public void setSalaryDtoList(List<SalaryDto> salaryDtoList) {
+		this.salaryDtoList = salaryDtoList;
+	}
+	
 }	

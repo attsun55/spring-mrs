@@ -1,10 +1,24 @@
 package mrs.app;
 
+import java.awt.geom.Rectangle2D;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
+import org.apache.pdfbox.text.PDFTextStripperByArea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -40,10 +54,11 @@ public class SalaryController {
 	@RequestMapping(value = "view")
 	public String view(Model model) {
 
-		//
-		KintaiDto kintai = kintaiService.findKintai("01", 202006);
+		List<KintaiDto> kintai = kintaiService.findKintai("01", 2020);
 
-		KyuyoDto kyuyo = kyuyoService.findKyuyo("01");
+		KyuyoDto kyuyo = kyuyoService.findKyuyo("91");
+		
+		List<SalaryDto> salaryList = kyuyoService.findSalary("01", 2020);		
 		
 		
 		String test = "aaaaa";
@@ -52,15 +67,8 @@ public class SalaryController {
 		
 		SalaryForm salaryForm = new SalaryForm();
 
-		salaryForm.setTaishoYm(String.valueOf(kintai.getTaishoYm()));
-		salaryForm.setTotalShikyu(String.valueOf(kyuyo.getTotalShikyu()));
-		salaryForm.setHurikomiShikyu(String.valueOf(kyuyo.getHurikomiShikyu()));
-		
-//        salaryForm.getTaishoYm();
-//        salaryForm.getTotalShikyu();
-//        salaryForm.getHurikomiShikyu();
-//		
-		
+		salaryForm.setSalaryDtoList(salaryList);
+				
 		model.addAttribute("salaryForm", salaryForm);
 		
 		return "salary/view";
@@ -77,6 +85,116 @@ public class SalaryController {
 
 	}
 
+	@RequestMapping(value = "import")
+	public String viewImp(Model model) {
+
+		//
+//		Kintai kintai = kintaiService.findKintai("01", 202006);
+
+		return "salary/import";
+
+	}
+	
+	@RequestMapping(value = "execute_import")
+	String imp(@Valid @ModelAttribute SalaryImportForm importForm, BindingResult result)
+			throws InvalidPasswordException, IOException {		
+		
+		String uploadDir = "C:\\tmp\\";
+		
+    	File uploadFile = new File(uploadDir + importForm.getImp_file().getOriginalFilename());
+        try {
+            // アップロードファイルを置く
+        	//File uploadFile = new File(uploadDir + importForm.getImp_file().getName());
+            byte[] bytes = importForm.getImp_file().getBytes();
+            BufferedOutputStream uploadFileStream = new BufferedOutputStream(new FileOutputStream(uploadFile));
+            uploadFileStream.write(bytes);
+            uploadFileStream.close();
+
+//            return "You successfully uploaded.";
+        } catch (Exception e) {
+            // 異常終了時の処理
+        } catch (Throwable t) {
+            // 異常終了時の処理
+        }		
+
+//		File file = new File("C:\\tmp\\20200630.pdf");
+		String password = "bm0GopkB";
+        
+//		PDDocument document = PDDocument.load(file, password);
+		PDDocument document = PDDocument.load(uploadFile, password);
+		
+		System.out.println("総ページ数：" + document.getNumberOfPages());
+
+		// 取得する店舗一覧のページ
+		int pageNo = 0;
+
+//		PDFTextStripper stripper = new PDFTextStripper();
+//		stripper.setStartPage(page);
+//		stripper.setEndPage(page);
+//		String text = stripper.getText(document);
+
+		PDFTextStripperByArea stripper = new PDFTextStripperByArea();
+		stripper.setSortByPosition( true );
+//		Rectangle rect = new Rectangle( 10, 10, 500, 500);
+		
+		double x = 37.0;
+        double y = 115.05;
+        double w = 513.58;
+        double h = 671.47;
+        Rectangle2D rect = new Rectangle2D.Double(x, y, w, h);
+		
+		stripper.addRegion( "row1column1", rect );
+//		List allPages = document.getPage(pageNo);
+		PDPage page= document.getPage(pageNo);
+		stripper.extractRegions( page );
+		
+		String text = stripper.getTextForRegion( "row1column1" );
+//		System.out.println(stripper.getTextForRegion( "row1column1" ));
+		
+//        String lines[]= stripper.split("\\r?\\n");
+//        for (String line : lines) {
+//            System.out.println(line);
+//        }		
+
+        String lines[]= text.split("\\r?\\n");
+        String word_pref = "";
+        for (String line : lines) {
+//            System.out.println(line);
+            
+        	
+            String[] words = line.split(" ");
+            for (String word : words) {
+                System.out.println(word);
+                
+                // 給与
+//                if(word_pref .equals("振込支給額1")) {
+//                    System.out.println(word_pref + " : " + word);
+//                }
+//                if(word_pref .equals("総支給額")) {
+//                    System.out.println(word_pref + " : " + word);
+//                }
+
+                // 賞与
+				if (word_pref.equals("賞総支給額 ")) {
+					System.out.println(word_pref + " : " + word);
+				}
+				if (word_pref.equals("賞振込支給額1")) {
+					System.out.println(word_pref + " : " + word);
+				}
+                
+                word_pref = word;
+            }
+        }		
+		
+		
+		// ファイル削除
+		uploadFile.delete();
+		
+		return "salary/import";
+
+	}	
+	
+	
 	/**
 	 * 登録
 	 * 
@@ -98,7 +216,7 @@ public class SalaryController {
 		// ユーザーID
 		kintaiDto.setUserId(form.getUserId());
 		// 対象年月
-		kintaiDto.setTaishoYm(Integer.parseInt(form.getTaishoYm()));
+		kintaiDto.setTaishoM(Integer.parseInt(form.getTaishoM()));
 		// 出勤日数
 		kintaiDto.setShukkinDays(Integer.parseInt(form.getShukkinDays()));
 		// 実働時間
@@ -112,7 +230,7 @@ public class SalaryController {
 
 		// 給与
 		// 支給年月
-		kyuyoDto.setShikyuYm(Integer.parseInt(form.getShikyuYm()));
+		kyuyoDto.setShikyuM(Integer.parseInt(form.getShikyuYm()));
 		// 支給区分
 		kyuyoDto.setShikyuKbn(Integer.parseInt(form.getJitshudoTime()));
 		// 基本給

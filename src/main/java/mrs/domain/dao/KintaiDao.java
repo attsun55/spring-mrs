@@ -15,7 +15,7 @@ import mrs.domain.model.SalaryDto;
 public interface KintaiDao {
 
 	@Select
-	public KintaiDto selectKintai(String userId, int taishoYm);
+	public List<KintaiDto> selectKintai(String userId, int taishoY);
 	
 	@Select
 	public List<KintaiDto> selectKintaiList(String userId);

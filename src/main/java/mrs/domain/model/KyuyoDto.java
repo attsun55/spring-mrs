@@ -19,8 +19,11 @@ public class KyuyoDto {
 	@Column(name = "user_id")
 	private String userId;
 	
-	@Column(name = "shikyu_ym")
-	private int shikyuYm;
+	@Column(name = "shikyu_y")
+	private int shikyuY;
+	
+	@Column(name = "shikyu_m")
+	private int shikyuM;
 	
 	@Column(name = "shikyu_kbn")
 	private int shikyuKbn;
@@ -100,14 +103,22 @@ public class KyuyoDto {
 		this.userId = userId;
 	}
 
-	public int getShikyuYm() {
-		return shikyuYm;
+	public int getShikyuY() {
+		return shikyuY;
 	}
 
-	public void setShikyuYm(int shikyuYm) {
-		this.shikyuYm = shikyuYm;
+	public void setShikyuY(int shikyuY) {
+		this.shikyuY = shikyuY;
 	}
 
+	public int getShikyuM() {
+		return shikyuM;
+	}
+
+	public void setShikyuM(int shikyuM) {
+		this.shikyuM = shikyuM;
+	}
+	
 	public int getShikyuKbn() {
 		return shikyuKbn;
 	}

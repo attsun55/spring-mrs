@@ -43,19 +43,11 @@
                     <tr>
                         <th>種別</th><th>月</th><th>総支給額</th> <th>振込支給額</th><th></th><th></th>
                     </tr>
-                    <tr>
-                      <td>給与</td>
-                      <td>05月</td>
-                      <td>362,000円</td>
-                      <td>307,000円</td>
-                      <td><button type="button" class="detailBtn" name="detail" value="detail">詳細</button></td>
-                      <td><button type="button" class="deleteBtn" name="delete" value="delete">削除</button></td>
-                    </tr>
-                    <tr>
+                    <tr th:each="salary : ${salaryForm.getSalaryDtoList()}">
                         <td>給与</td>
-                        <!-- <td><p th:text="${salaryForm.getTaishoYm()}"></p></td> -->
-                        <!-- <td><p th:text="${salaryForm.getTotalShikyu()}"></p></td>
-                        <td><p th:text="${salaryForm.getHurikomiShikyu()}"></p></td> -->
+                        <td><p th:text="${salary.getTaishoM()}"></p></td>
+                        <td><p th:text="${salary.getTotalShikyu()}"></p></td>
+                        <td><p th:text="${salary.getHurikomiShikyu()}"></p></td>
                         <td><button type="button" class="detailBtn" name="aaa" value="aaa">詳細</button></td>
                         <td><button type="button" class="deleteBtn" name="delete" value="delete">削除</button></td>
                     </tr>
