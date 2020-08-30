@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.validation.Valid;
 
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import mrs.domain.dao.KyuyoDao;
 import mrs.domain.model.KintaiDto;
 import mrs.domain.model.KyuyoDto;
 import mrs.domain.model.SalaryDto;
@@ -42,6 +45,9 @@ public class SalaryController {
 	@Autowired
 	KyuyoService kyuyoService;
 	
+	@Autowired
+	KyuyoDao kyuyoDao;
+	
 //	@ModelAttribute
 //	private SalaryForm setSalaryFom() {
 //
@@ -51,6 +57,11 @@ public class SalaryController {
 //		
 //	}
 //	
+	/**
+	 * 表示
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "view")
 	public String view(Model model) {
 
@@ -75,6 +86,12 @@ public class SalaryController {
 
 	}
 
+	/**
+	 * 編集
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "edit")
 	public String edit(Model model) {
 
@@ -85,6 +102,12 @@ public class SalaryController {
 
 	}
 
+	/**
+	 * 取込み
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "import")
 	public String viewImp(Model model) {
 
@@ -128,14 +151,8 @@ public class SalaryController {
 		// 取得する店舗一覧のページ
 		int pageNo = 0;
 
-//		PDFTextStripper stripper = new PDFTextStripper();
-//		stripper.setStartPage(page);
-//		stripper.setEndPage(page);
-//		String text = stripper.getText(document);
-
 		PDFTextStripperByArea stripper = new PDFTextStripperByArea();
 		stripper.setSortByPosition( true );
-//		Rectangle rect = new Rectangle( 10, 10, 500, 500);
 		
 		double x = 37.0;
         double y = 115.05;
@@ -149,46 +166,59 @@ public class SalaryController {
 		stripper.extractRegions( page );
 		
 		String text = stripper.getTextForRegion( "row1column1" );
-//		System.out.println(stripper.getTextForRegion( "row1column1" ));
 		
-//        String lines[]= stripper.split("\\r?\\n");
-//        for (String line : lines) {
-//            System.out.println(line);
-//        }		
-
+		KintaiDto kintai = new KintaiDto();
+		
+		KyuyoDto kyuyoDto = new KyuyoDto();
+		
         String lines[]= text.split("\\r?\\n");
         String word_pref = "";
         for (String line : lines) {
 //            System.out.println(line);
-            
         	
             String[] words = line.split(" ");
             for (String word : words) {
-                System.out.println(word);
+//                System.out.println(word);
                 
                 // 給与
+//				if (check("給与対象年月", word_pref)) {
+//					String date = word.substring(0, 8);
+//					System.out.println("給与日付：" + word);
+//				}
+//				if (check("賞与対象年月", word_pref)) {
+//					String date = word.substring(0, 8);
+//					System.out.println("賞与日付：" + word);
+//				}
+				
 //                if(word_pref .equals("振込支給額1")) {
 //                    System.out.println(word_pref + " : " + word);
 //                }
-//                if(word_pref .equals("総支給額")) {
-//                    System.out.println(word_pref + " : " + word);
-//                }
-
+            	
+            	// 給与
+                if(word_pref .equals("総支給額")) {
+                	kyuyoDto.setTotalShikyu(Integer.parseInt(word.replace(",", "")));
+                    System.out.println(word_pref + " : " + word);
+                }
                 // 賞与
-				if (word_pref.equals("賞総支給額 ")) {
+				if (word_pref.equals("総支給額 ")) {
+                	kyuyoDto.setTotalShikyu(Integer.parseInt(word.replace(",", "")));
 					System.out.println(word_pref + " : " + word);
 				}
-				if (word_pref.equals("賞振込支給額1")) {
+				if (word_pref.equals("賞振込支給額1")) {	
+                	kyuyoDto.setHurikomiShikyu(Integer.parseInt(word.replace(",", "")));
 					System.out.println(word_pref + " : " + word);
 				}
                 
+				// 前行を保持
                 word_pref = word;
             }
         }		
-		
+		document.close();
 		
 		// ファイル削除
 		uploadFile.delete();
+        int cnt = kyuyoDao.insertKyuyo(kyuyoDto);
+        
 		
 		return "salary/import";
 
@@ -274,4 +304,20 @@ public class SalaryController {
 
 	}
 
+	
+	private boolean check(String regex, String target){
+
+	    Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(target);
+	    
+//	    System.out.print(target + " は " + p.pattern() + " に");
+
+	    if (m.find()){
+//	      System.out.println("マッチします");
+	    	return true;
+	    }else{
+//	      System.out.println("マッチしません");
+	    	return false;
+	    }
+	  }	
 }

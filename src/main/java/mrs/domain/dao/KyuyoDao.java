@@ -1,6 +1,7 @@
 package mrs.domain.dao;
 
 import org.seasar.doma.Dao;
+import org.seasar.doma.Insert;
 import org.seasar.doma.Select;
 import org.seasar.doma.boot.ConfigAutowireable;
 
@@ -16,7 +17,7 @@ public interface KyuyoDao {
 //	@Select
 //	public List<Kintai> selectKintaiList(String userId);
 //	
-//	@Insert
-//	public int insertKintai(SalaryDto salaryDto);
+	@Insert(sqlFile = true)
+	public int insertKyuyo(KyuyoDto kyuyoDto);
 	
 }
